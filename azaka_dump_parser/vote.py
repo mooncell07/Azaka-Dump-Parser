@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import gzip
+import typing as t
 
 __all__ = ("Vote",)
 
@@ -15,7 +17,12 @@ class Vote:
         self.date = date
 
     @classmethod
-    def from_dump(cls, data: bytes) -> Vote:
-        parameters: list = data.decode().split()
-        parameters[:-1] = [int(x) for x in parameters[:-1]]
-        return cls(*parameters)
+    def from_dump(cls, file: gzip.GzipFile) -> t.Generator[Vote, None, None]:
+        for data in file.readlines():
+            parameters: list = data.decode().split()
+            parameters[:-1] = [int(x) for x in parameters[:-1]]
+            yield cls(*parameters)
+
+
+    def __repr__(self) -> str:
+        return f"<Vote vn_id={self.vn_id}>"
