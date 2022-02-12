@@ -7,6 +7,18 @@ __all__ = ("Vote",)
 
 
 class Vote:
+    """
+    A class representing a `vote`.
+
+    Attributes:
+        vn_id (int): The VN's ID.
+        user_id (int): The user's ID.
+        vote (int): The vote's value multiplied by 10.
+        date (str): The date when the vote was added.
+
+    Info:
+        The vote files are not json.
+    """
 
     __slots__ = ("vn_id", "user_id", "vote", "date")
 
